@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { getOpenApi } from 'api/quiz';
+import { isMobile } from 'react-device-detect';
+import Root from 'routes/Root';
 
 function App() {
   useEffect(() => {
@@ -12,7 +14,10 @@ function App() {
     }
     asyncGetOpenApi();
   }, []);
-  return <div className="App">Hello, Create-React-App</div>;
+
+  return (
+    <div>{isMobile ? <Root /> : <div>지원하지 않는 장비입니다.</div>}</div>
+  );
 }
 
 export default App;

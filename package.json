@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ppark2ya.github.io/quiz-webapp",
   "name": "quiz-webapp",
   "version": "0.1.0",
   "private": true,
@@ -14,6 +15,7 @@
     "@types/styled-components": "^5.1.11",
     "axios": "^0.21.1",
     "date-fns": "^2.22.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
@@ -24,6 +26,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

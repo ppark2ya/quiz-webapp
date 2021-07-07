@@ -2,10 +2,11 @@ import apiClient from './apiClient';
 import { IParams, ApiResponse } from './types';
 
 /**
- * @desc 선호 음식점 입력
- * @param id: 사용자 id(Number)
- * @param place_id: 카카오 api에서 넘어온 식당 식별자(Number)
- * @param place_name: 식당이름(String)
+ * @desc 퀴즈 질문 리스트 조회
+ * @param amount: 퀴즈 개수(number)
+ * @param category: 퀴즈 카테고리(number 9 ~ 32)
+ * @param difficulty: 난이도('easy' | 'medium' | 'hard')
+ * @result if response_code is 0: IResults[]
  */
 export function getOpenApi(params: IParams) {
   return apiClient.get<ApiResponse>(`/amount`, {
