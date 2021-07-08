@@ -1,7 +1,8 @@
+export type Difficulty = 'easy' | 'medium' | 'hard';
 export interface IParams {
   amount: number;
   category?: number; // 9 ~ 32
-  difficulty?: 'easy' | 'medium' | 'hard';
+  difficulty?: Difficulty;
 }
 /**
  * Code 0: Success Returned results successfully.
@@ -17,6 +18,21 @@ export interface ApiResponse {
   results?: IResults[];
 }
 
+/**
+ * 퀴즈 응답 데이터 예시
+ * {
+      "category": "General Knowledge",
+      "correct_answer": "Ed Sheeran - I See Fire",
+      "difficulty": "hard",
+      "incorrect_answers": [
+        "Marvin Gaye - Sexual Healing",
+        "Coldplay - Midnight",
+        "a-ha - Take On Me"
+      ]
+      "question": "Electronic music producer Kygo&#039;s popularity skyrocketed after a certain remix. Which song did he remix?",
+      "type": "multiple",
+  }
+ */
 export interface IResults {
   category: string;
   correct_answer: string;
