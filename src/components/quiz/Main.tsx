@@ -16,65 +16,31 @@
 import { useLocation } from 'react-router-dom';
 import { Location } from 'history';
 import { IResults } from 'api/types';
-import { useState, useEffect } from 'react';
-
-/**
- * 퀴즈 응답 데이터 예시
- * {
-      "category": "General Knowledge",
-      "correct_answer": "Ed Sheeran - I See Fire",
-      "difficulty": "hard",
-      "incorrect_answers": [
-        "Marvin Gaye - Sexual Healing",
-        "Coldplay - Midnight",
-        "a-ha - Take On Me"
-      ]
-      "question": "Electronic music producer Kygo&#039;s popularity skyrocketed after a certain remix. Which song did he remix?",
-      "type": "multiple",
-  }
- */
-interface IQuizItem extends IResults {
-  /**
-   * 랜덤으로 정렬한 전체 퀴즈 문항들
-   */
-  allAnswers: string[];
-  /**
-   * 사용자가 선택한 답안
-   */
-  userAnswer?: string;
-}
+import useQuiz from 'hooks/useQuiz';
+import QuizItem from 'components/quiz/QuizItem';
+import { isEmpty } from 'lodash';
 
 function Main() {
   const location: Location<{ results: IResults[] }> = useLocation();
-  const { results } = location.state;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [quizItems, setQuizItems] = useState<IQuizItem[]>();
+  const {
+    progressTime,
+    quizItems,
+    currentIndex,
+    onSelectQuizItem,
+    onNextQuiz,
+  } = useQuiz(location.state.results);
 
-  useEffect(() => {
-    // 문항 순서 랜덤 지정
-    const newQuizItems = results.reduce(
-      (newQuizItems: IQuizItem[], quiz, idx) => {
-        const currentAnswers = [quiz.correct_answer, ...quiz.incorrect_answers];
-        const allAnswers = [];
-        for (let i = 0; i < 4; i++) {
-          const rand = Math.floor(Math.random() * 2 ** 32);
-          const selectIndex = rand % currentAnswers.length;
-          allAnswers[i] = currentAnswers[selectIndex];
-          currentAnswers.splice(selectIndex, 1);
-        }
-        newQuizItems[idx] = {
-          ...quiz,
-          allAnswers,
-        };
-        return newQuizItems;
-      },
-      [],
-    );
-    console.log('newQuizItems: ', newQuizItems);
-    setQuizItems(newQuizItems);
-  }, [results]);
-
-  return <div></div>;
+  return (
+    <div>
+      {!isEmpty(quizItems) && (
+        <QuizItem
+          quizItem={quizItems[currentIndex]}
+          onSelectQuizItem={onSelectQuizItem}
+          onNextQuiz={onNextQuiz}
+        />
+      )}
+    </div>
+  );
 }
 
 export default Main;
