@@ -22,21 +22,18 @@ import { isEmpty } from 'lodash';
 
 function Main() {
   const location: Location<{ results: IResults[] }> = useLocation();
-  const {
-    progressTime,
-    quizItems,
-    currentIndex,
-    onSelectQuizItem,
-    onNextQuiz,
-  } = useQuiz(location.state.results);
+  const { quizItems, currentIndex, onSelectQuizItem, onNextQuiz } = useQuiz(
+    location.state?.results,
+  );
 
   return (
     <div>
       {!isEmpty(quizItems) && (
         <QuizItem
-          quizItem={quizItems[currentIndex]}
+          quizItem={quizItems!![currentIndex]}
           onSelectQuizItem={onSelectQuizItem}
           onNextQuiz={onNextQuiz}
+          isLast={quizItems!!.length === currentIndex + 1}
         />
       )}
     </div>

@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
   }
   a {
     color: inherit;

@@ -1,10 +1,31 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import SelectBox from 'components/common/SelectBox';
 import Input from 'components/common/Input';
 import { getOpenApi } from 'api/quiz';
 import { Difficulty, IParams } from 'api/types';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import Button from 'components/common/Button';
+
+const FormContainer = styled.form`
+  height: 100vh;
+  padding: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  p {
+    color: ${(props) => props.theme.color.red};
+    font-weight: bold;
+  }
+`;
 
 interface IFormInputs {
   amount: number;
@@ -29,25 +50,28 @@ function Intro() {
           difficulty === 'any' ? undefined : (difficulty as Difficulty),
       };
       const { data } = await getOpenApi(params);
-      console.log('resp: ', data);
 
       if (data.response_code === 0) {
         history.push({
-          pathname: 'quiz',
+          pathname: '/quiz',
           state: {
             results: data.results!!,
           },
         });
       } else {
-        window.alert('퀴즈를 생성하는데 실패했습니다. 다시 시도해주세요.');
+        window.alert('Failed to generate quiz. please try again.');
       }
     } catch (e) {
-      window.alert('네트워크 상태를 확인해주세요!');
+      window.alert('Please check the network status!');
     }
   }, []);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <div className="title">
+        Please select the option of the quiz <br />
+        you want to solve
+      </div>
       <Input
         type="number"
         label="amount"
@@ -63,7 +87,6 @@ function Intro() {
         <p>Your input required to be less than 50</p>
       )}
       {errors.amount?.type === 'required' && <p>Your input required</p>}
-      <div style={{ marginBottom: '20px' }}></div>
       <SelectBox
         label="category"
         register={register}
@@ -107,8 +130,8 @@ function Intro() {
           { value: 'hard', label: 'hard' },
         ]}
       />
-      <input type="submit" value="submit" />
-    </form>
+      <Button style={{ marginTop: '30px' }}>Getting Started</Button>
+    </FormContainer>
   );
 }
 
