@@ -76,6 +76,8 @@ function Result() {
   const memoizedComponent = useMemo(() => {
     if (location.state?.results) {
       const { progressTime, quizItems } = location.state.results;
+      const min = Math.floor(progressTime / 60);
+      const secs = progressTime - min * 60;
       const { solved, failed } = quizItems?.reduce(
         (prev, quiz) =>
           quiz.userAnswer === quiz.correct_answer
@@ -127,7 +129,7 @@ function Result() {
             ]}
           />
           <div className="title">Result</div>
-          <div className="result">{`Time taken to solve the quiz: ${progressTime}`}</div>
+          <div className="result">{`Elapsed Time: ${min}min ${secs}secs`}</div>
           <div className="result">{`Solved: ${solved}`}</div>
           <div className="result">{`Failed: ${failed}`}</div>
           <StyledButton onClick={onRetryQuiz}>
@@ -143,7 +145,7 @@ function Result() {
     } else {
       return <div>The wrong approach.</div>;
     }
-  }, [location.state?.results]);
+  }, [location.state?.results, onRetryQuiz, onShowWrongNote]);
 
   useEffect(() => {
     if (location.state?.results === undefined) {

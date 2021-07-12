@@ -16,3 +16,24 @@ export function getOpenApi(params: IParams) {
     },
   });
 }
+
+/**
+ * test 전용 함수
+ * @param params IParams
+ * @returns
+ */
+export async function getOpenApiTest(params: IParams) {
+  try {
+    const { data } = await apiClient.get<ApiResponse>(`/amount`, {
+      params: {
+        ...params,
+        type: 'multiple',
+      },
+    });
+    return data;
+  } catch (e) {
+    return {
+      response_code: 1,
+    } as ApiResponse;
+  }
+}

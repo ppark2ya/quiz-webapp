@@ -34,7 +34,7 @@ function App() {
 
   const MountedComponent = useMemo(
     () => (isMobile ? <Root /> : <div>지원하지 않는 장비입니다.</div>),
-    [isMobile],
+    [],
   );
 
   return (

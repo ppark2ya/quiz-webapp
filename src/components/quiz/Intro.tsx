@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SelectBox from 'components/common/SelectBox';
 import Input from 'components/common/Input';
@@ -7,6 +7,7 @@ import { Difficulty, IParams } from 'api/types';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import Alert from 'components/common/Alert';
 
 const FormContainer = styled.form`
   height: 100vh;
@@ -40,6 +41,9 @@ function Intro() {
     handleSubmit,
   } = useForm<IFormInputs>();
   const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onSubmit = useCallback(async (formData: IFormInputs) => {
     try {
       const { amount, category, difficulty } = formData;
@@ -59,15 +63,31 @@ function Intro() {
           },
         });
       } else {
-        window.alert('Failed to generate quiz. please try again.');
+        setIsOpen(true);
+        setErrorMessage('Failed to generate quiz. please try again.');
       }
     } catch (e) {
-      window.alert('Please check the network status!');
+      setIsOpen(true);
+      setErrorMessage('Please check the network status!');
     }
   }, []);
 
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const memoAlert = useMemo(
+    () => (
+      <Alert id="submit-alert" isOpen={isOpen} onClose={onClose}>
+        {errorMessage}
+      </Alert>
+    ),
+    [isOpen, onClose, errorMessage],
+  );
+
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      {memoAlert}
       <div className="title">
         Please select the option of the quiz <br />
         you want to solve

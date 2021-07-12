@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Result/> 1`] = `
+.c1 {
+  border-radius: 10px;
+  background-color: #DA291C;
+  color: white;
+  font-weight: bold;
+  padding: 15px 15vw;
+  font-size: 1.2rem;
+}
+
+.c0 {
+  height: 100vh;
+  padding: 5vw;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0 .title {
+  font-size: 2.5rem;
+  position: fixed;
+  top: 4vh;
+  left: 0;
+  width: 100vw;
+  text-align: center;
+}
+
+.c0 .result {
+  font-size: 1.2rem;
+  padding: 0.3vh 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 1vh 0;
+}
+
+.c2 svg {
+  margin-right: 2vw;
+}
+
+<div
+  class="c0"
+>
+  <div
+    style="height: 50%; margin-top: -10vh;"
+  >
+    <div
+      style="width: 100%; height: 100%;"
+    />
+  </div>
+  <div
+    class="title"
+  >
+    Result
+  </div>
+  <div
+    class="result"
+  >
+    Elapsed Time: 0min 19secs
+  </div>
+  <div
+    class="result"
+  >
+    Solved: 0
+  </div>
+  <div
+    class="result"
+  >
+    Failed: 2
+  </div>
+  <button
+    class="c1 c2"
+    type="submit"
+  >
+    <svg
+      fill="white"
+    >
+      retry.svg
+    </svg>
+    Try this again
+  </button>
+  <button
+    class="c1 c2"
+    type="submit"
+  >
+    <svg
+      fill="white"
+    >
+      check-note.svg
+    </svg>
+    Wrong Note
+  </button>
+</div>
+`;

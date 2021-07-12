@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 
-const QuizContainer = styled.div<{ quizId: number }>`
+const QuizContainer = styled.div`
   height: 100vh;
   padding: 5vw;
   display: flex;
@@ -13,13 +13,6 @@ const QuizContainer = styled.div<{ quizId: number }>`
   .title {
     font-weight: bold;
     font-size: 1.5rem;
-    &:before {
-      content: 'Q${(props) => props.quizId + 1}.';
-      width: 10px;
-      height: 10px;
-      margin-right: 8vw;
-      display: inline-block;
-    }
   }
   .difficulty {
     color: white;
@@ -91,15 +84,15 @@ function QuizItem({
     (currentAnswer: string) => {
       onSelectQuizItem(id, currentAnswer);
     },
-    [id],
+    [id, onSelectQuizItem],
   );
 
   return (
-    <QuizContainer quizId={id}>
+    <QuizContainer>
       <div
         className="title"
-        dangerouslySetInnerHTML={{ __html: question }}
-      ></div>
+        dangerouslySetInnerHTML={{ __html: `Q${id + 1}. ${question}` }}
+      />
       <div className="difficulty">{difficulty}</div>
       <ul>
         {allAnswers.map((ans, idx) => (
