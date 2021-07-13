@@ -49,6 +49,24 @@ const GlobalStyle = createGlobalStyle`
   select::-ms-expand { 
     display: none; 
   }
+  .fade-appear, .fade-enter {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  .fade-appear-active, .fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 300ms linear 150ms;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 150ms linear;
+  }
 `;
 
 export default GlobalStyle;
